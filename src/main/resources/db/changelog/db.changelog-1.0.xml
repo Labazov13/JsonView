@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="labazov">
+        <createTable tableName="users_data">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+            <column name="user_name" type="VARCHAR(62)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(62)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+    <changeSet id="2" author="labazov">
+        <createTable tableName="orders_data">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="fk_user_id" references="users_data(id)"/>
+            </column>
+            <column name="products" type="VARCHAR(255)"/>
+            <column name="total_amount" type="NUMERIC"/>
+            <column name="status" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="labazov">
+        <createTable tableName="products_data">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="cost" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints foreignKeyName="fk_order_id" references="orders_data(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="labazov">
+        <insert tableName="products_data">
+            <column name="id" value="1"/>
+            <column name="name" value="Milk"/>
+            <column name="cost" value="25"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="2"/>
+            <column name="name" value="Bread"/>
+            <column name="cost" value="15"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="3"/>
+            <column name="name" value="Cheese"/>
+            <column name="cost" value="15"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="4"/>
+            <column name="name" value="Beer"/>
+            <column name="cost" value="25"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="5"/>
+            <column name="name" value="Fish"/>
+            <column name="cost" value="40"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="6"/>
+            <column name="name" value="Jam"/>
+            <column name="cost" value="30"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="7"/>
+            <column name="name" value="Crisp"/>
+            <column name="cost" value="10"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="8"/>
+            <column name="name" value="Potato"/>
+            <column name="cost" value="15"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="9"/>
+            <column name="name" value="Pizza"/>
+            <column name="cost" value="35"/>
+        </insert>
+        <insert tableName="products_data">
+            <column name="id" value="10"/>
+            <column name="name" value="Tako"/>
+            <column name="cost" value="40"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
